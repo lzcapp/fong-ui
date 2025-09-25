@@ -1,66 +1,118 @@
 <template>
-  <div class="p-4">
-    <h2 class="text-xl font-bold mb-4">Device List</h2>
+    <div class="p-6">
+        <!-- Page title -->
+        <h2 class="text-2xl font-bold mb-6 text-gray-800">Device List</h2>
 
-    <!-- Loading state -->
-    <div v-if="loading" class="text-gray-500">Loading devices...</div>
+        <!-- Loading state -->
+        <div v-if="loading" class="text-gray-500 text-center py-6">
+            Loading devices...
+        </div>
 
-    <!-- Table -->
-    <table v-else class="table-auto border-collapse border border-gray-300 w-full">
-      <thead>
-      <tr class="bg-gray-100">
-        <th class="border border-gray-300 px-4 py-2">ID</th>
-        <th class="border border-gray-300 px-4 py-2">Name</th>
-        <th class="border border-gray-300 px-4 py-2">Contact ID</th>
-      </tr>
-      </thead>
-      <tbody>
-      <tr v-for="device in devices" :key="device.id">
-        <td class="border border-gray-300 px-4 py-2">{{ device.id }}</td>
-        <td class="border border-gray-300 px-4 py-2">{{ device.name }}</td>
-        <td class="border border-gray-300 px-4 py-2">{{ device.contact_id }}</td>
-      </tr>
-      </tbody>
-    </table>
+        <!-- Table -->
+        <div v-else class="overflow-x-auto">
+            <table class="min-w-full border border-gray-200 rounded-lg shadow-sm">
+                <thead>
+                <tr class="bg-gray-100 text-gray-700">
+                    <th class="px-6 py-3 text-left text-sm font-semibold border-b border-gray-200">ID</th>
+                    <th class="px-6 py-3 text-left text-sm font-semibold border-b border-gray-200">Mac</th>
+                    <th class="px-6 py-3 text-left text-sm font-semibold border-b border-gray-200">IP</th>
+                    <th class="px-6 py-3 text-left text-sm font-semibold border-b border-gray-200">Name</th>
+                    <th class="px-6 py-3 text-left text-sm font-semibold border-b border-gray-200">Status</th>
+                    <th class="px-6 py-3 text-left text-sm font-semibold border-b border-gray-200">Type</th>
+                    <th class="px-6 py-3 text-left text-sm font-semibold border-b border-gray-200">Vendor</th>
+                    <th class="px-6 py-3 text-left text-sm font-semibold border-b border-gray-200">Model</th>
+                    <th class="px-6 py-3 text-left text-sm font-semibold border-b border-gray-200">Contact ID</th>
+                    <th class="px-6 py-3 text-left text-sm font-semibold border-b border-gray-200">First Seen</th>
+                    <th class="px-6 py-3 text-left text-sm font-semibold border-b border-gray-200">Last Changed</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr
+                    v-for="device in devices"
+                    :key="device.id"
+                    class="hover:bg-gray-50 transition-colors"
+                >
+                    <td class="px-6 py-4 border-b border-gray-100 text-sm text-gray-800">{{ device.id }}</td>
+                    <td class="px-6 py-4 border-b border-gray-100 text-sm text-gray-800">{{ device.mac }}</td>
+                    <td class="px-6 py-4 border-b border-gray-100 text-sm text-gray-800">
+                        <div class="flex flex-wrap gap-2">
+                            <span
+                                v-for="ip in device.ip.split(',')"
+                                :key="ip"
+                                class="bg-blue-100 text-blue-700 text-xs font-medium px-2 py-1 rounded"
+                            >
+                              {{ ip.trim() }}
+                            </span>
+                        </div>
+                    </td>
+                    <td class="px-6 py-4 border-b border-gray-100 text-sm text-gray-800">{{ device.name }}</td>
+                    <td class="px-6 py-4 border-b border-gray-100 text-sm text-gray-800">
+                        <span
+                            v-if="device.state === 1"
+                            class="bg-green-100 text-green-700 px-2 py-1 rounded text-xs font-medium"
+                          >
+                            ON
+                          </span>
+                          <span
+                            v-else-if="device.state === 0"
+                            class="bg-red-100 text-red-700 px-2 py-1 rounded text-xs font-medium"
+                          >
+                            DOWN
+                          </span>
+                          <span
+                            v-else
+                            class="bg-gray-100 text-gray-700 px-2 py-1 rounded text-xs font-medium"
+                          >
+                            UNKNOWN
+                          </span>
+                    </td>
+                    <td class="px-6 py-4 border-b border-gray-100 text-sm text-gray-800">{{ device.type }}</td>
+                    <td class="px-6 py-4 border-b border-gray-100 text-sm text-gray-800">{{ device.vendor }}</td>
+                    <td class="px-6 py-4 border-b border-gray-100 text-sm text-gray-800">{{ device.model }}</td>
+                    <td class="px-6 py-4 border-b border-gray-100 text-sm text-gray-800">{{ device.contactId }}</td>
+                    <td class="px-6 py-4 border-b border-gray-100 text-sm text-gray-800">{{ new Date(device.firstSeen).toLocaleString() }}</td>
+                    <td class="px-6 py-4 border-b border-gray-100 text-sm text-gray-800">{{ new Date(device.lastChanged).toLocaleString() }}</td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
 
-    <!-- Error message -->
-    <div v-if="error" class="text-red-500 mt-2">{{ error }}</div>
-  </div>
+        <!-- Error message -->
+        <div v-if="error" class="text-red-500 mt-4 text-center font-medium">
+            {{ error }}
+        </div>
+    </div>
 </template>
 
 <script>
 import axios from 'axios';
 
 export default {
-  name: 'DeviceTable',
-  data() {
-    return {
-      devices: [],
-      loading: false,
-      error: null
-    };
-  },
-  methods: {
-    async fetchDevices() {
-      this.loading = true;
-      this.error = null;
-      try {
-        const response = await axios.get('http://localhost:5000/api/devices');
-        this.devices = response.data;
-      } catch (err) {
-        this.error = 'Failed to load devices';
-        console.error(err);
-      } finally {
-        this.loading = false;
-      }
+    name: 'DeviceTable',
+    data() {
+        return {
+            devices: [],
+            loading: false,
+            error: null
+        };
+    },
+    methods: {
+        async fetchDevices() {
+            this.loading = true;
+            this.error = null;
+            try {
+                const response = await axios.get('http://localhost:5222/api/devices');
+                this.devices = response.data;
+            } catch (err) {
+                this.error = 'Failed to load devices';
+                console.error(err);
+            } finally {
+                this.loading = false;
+            }
+        }
+    },
+    mounted() {
+        this.fetchDevices();
     }
-  },
-  mounted() {
-    this.fetchDevices();
-  }
 };
 </script>
-
-<style>
-/* Optional: basic table styling */
-</style>
