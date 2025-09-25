@@ -21,7 +21,6 @@
                         <th class="px-6 py-3 text-left text-sm font-semibold border-b border-gray-200">Type</th>
                         <th class="px-6 py-3 text-left text-sm font-semibold border-b border-gray-200">Vendor</th>
                         <th class="px-6 py-3 text-left text-sm font-semibold border-b border-gray-200">Model</th>
-                        <th class="px-6 py-3 text-left text-sm font-semibold border-b border-gray-200">Contact ID</th>
                         <th class="px-6 py-3 text-left text-sm font-semibold border-b border-gray-200">First Seen</th>
                         <th class="px-6 py-3 text-left text-sm font-semibold border-b border-gray-200">Last Changed</th>
                     </tr>
@@ -69,7 +68,6 @@
                         <td class="px-6 py-4 border-b border-gray-100 text-sm text-gray-800">{{ device.type }}</td>
                         <td class="px-6 py-4 border-b border-gray-100 text-sm text-gray-800">{{ device.vendor }}</td>
                         <td class="px-6 py-4 border-b border-gray-100 text-sm text-gray-800">{{ device.model }}</td>
-                        <td class="px-6 py-4 border-b border-gray-100 text-sm text-gray-800">{{ device.contactId }}</td>
                         <td class="px-6 py-4 border-b border-gray-100 text-sm text-gray-800">
                             {{ new Date(device.firstSeen * 1000).toLocaleString() }}
                         </td>
