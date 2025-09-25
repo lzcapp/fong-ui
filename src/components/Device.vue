@@ -1,7 +1,6 @@
 <template>
-    <div class="p-6">
-        <!-- Page title -->
-        <h2 class="text-2xl font-bold mb-6 text-gray-800">Device List</h2>
+    <div class="p-4 h-full flex flex-col">
+        <h2 class="text-2xl font-bold mb-4">Device Table</h2>
 
         <!-- Loading state -->
         <div v-if="loading" class="text-gray-500 text-center py-6">
@@ -9,33 +8,34 @@
         </div>
 
         <!-- Table -->
-        <div v-else class="overflow-x-auto">
-            <table class="min-w-full border border-gray-200 rounded-lg shadow-sm">
-                <thead>
-                <tr class="bg-gray-100 text-gray-700">
-                    <th class="px-6 py-3 text-left text-sm font-semibold border-b border-gray-200">ID</th>
-                    <th class="px-6 py-3 text-left text-sm font-semibold border-b border-gray-200">Mac</th>
-                    <th class="px-6 py-3 text-left text-sm font-semibold border-b border-gray-200">IP</th>
-                    <th class="px-6 py-3 text-left text-sm font-semibold border-b border-gray-200">Name</th>
-                    <th class="px-6 py-3 text-left text-sm font-semibold border-b border-gray-200">Status</th>
-                    <th class="px-6 py-3 text-left text-sm font-semibold border-b border-gray-200">Type</th>
-                    <th class="px-6 py-3 text-left text-sm font-semibold border-b border-gray-200">Vendor</th>
-                    <th class="px-6 py-3 text-left text-sm font-semibold border-b border-gray-200">Model</th>
-                    <th class="px-6 py-3 text-left text-sm font-semibold border-b border-gray-200">Contact ID</th>
-                    <th class="px-6 py-3 text-left text-sm font-semibold border-b border-gray-200">First Seen</th>
-                    <th class="px-6 py-3 text-left text-sm font-semibold border-b border-gray-200">Last Changed</th>
-                </tr>
-                </thead>
-                <tbody>
-                <tr
-                    v-for="device in devices"
-                    :key="device.id"
-                    class="hover:bg-gray-50 transition-colors"
-                >
-                    <td class="px-6 py-4 border-b border-gray-100 text-sm text-gray-800">{{ device.id }}</td>
-                    <td class="px-6 py-4 border-b border-gray-100 text-sm text-gray-800">{{ device.mac }}</td>
-                    <td class="px-6 py-4 border-b border-gray-100 text-sm text-gray-800">
-                        <div class="flex flex-wrap gap-2">
+        <div class="flex-1 overflow-auto relative">
+            <div class="min-w-full">
+                <table class="min-w-full border border-gray-200 rounded-lg shadow-sm">
+                    <thead>
+                    <tr class="bg-gray-100 text-gray-700">
+                        <th class="px-6 py-3 text-left text-sm font-semibold border-b border-gray-200">ID</th>
+                        <th class="px-6 py-3 text-left text-sm font-semibold border-b border-gray-200">Mac</th>
+                        <th class="px-6 py-3 text-left text-sm font-semibold border-b border-gray-200">IP</th>
+                        <th class="px-6 py-3 text-left text-sm font-semibold border-b border-gray-200">Name</th>
+                        <th class="px-6 py-3 text-left text-sm font-semibold border-b border-gray-200">Status</th>
+                        <th class="px-6 py-3 text-left text-sm font-semibold border-b border-gray-200">Type</th>
+                        <th class="px-6 py-3 text-left text-sm font-semibold border-b border-gray-200">Vendor</th>
+                        <th class="px-6 py-3 text-left text-sm font-semibold border-b border-gray-200">Model</th>
+                        <th class="px-6 py-3 text-left text-sm font-semibold border-b border-gray-200">Contact ID</th>
+                        <th class="px-6 py-3 text-left text-sm font-semibold border-b border-gray-200">First Seen</th>
+                        <th class="px-6 py-3 text-left text-sm font-semibold border-b border-gray-200">Last Changed</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr
+                        v-for="device in devices"
+                        :key="device.id"
+                        class="hover:bg-gray-50 transition-colors"
+                    >
+                        <td class="px-6 py-4 border-b border-gray-100 text-sm text-gray-800">{{ device.id }}</td>
+                        <td class="px-6 py-4 border-b border-gray-100 text-sm text-gray-800">{{ device.mac }}</td>
+                        <td class="px-6 py-4 border-b border-gray-100 text-sm text-gray-800">
+                            <div class="flex flex-wrap gap-2">
                             <span
                                 v-for="ip in device.ip.split(',')"
                                 :key="ip"
@@ -43,38 +43,48 @@
                             >
                               {{ ip.trim() }}
                             </span>
-                        </div>
-                    </td>
-                    <td class="px-6 py-4 border-b border-gray-100 text-sm text-gray-800">{{ device.name }}</td>
-                    <td class="px-6 py-4 border-b border-gray-100 text-sm text-gray-800">
+                            </div>
+                        </td>
+                        <td class="px-6 py-4 border-b border-gray-100 text-sm text-gray-800">{{ device.name }}</td>
+                        <td class="px-6 py-4 border-b border-gray-100 text-sm text-gray-800">
                         <span
                             v-if="device.state === 1"
                             class="bg-green-100 text-green-700 px-2 py-1 rounded text-xs font-medium"
-                          >
+                        >
                             ON
                           </span>
-                          <span
-                            v-else-if="device.state === 0"
-                            class="bg-red-100 text-red-700 px-2 py-1 rounded text-xs font-medium"
-                          >
+                            <span
+                                v-else-if="device.state === 0"
+                                class="bg-red-100 text-red-700 px-2 py-1 rounded text-xs font-medium"
+                            >
                             DOWN
                           </span>
-                          <span
-                            v-else
-                            class="bg-gray-100 text-gray-700 px-2 py-1 rounded text-xs font-medium"
-                          >
+                            <span
+                                v-else
+                                class="bg-gray-100 text-gray-700 px-2 py-1 rounded text-xs font-medium"
+                            >
                             UNKNOWN
                           </span>
-                    </td>
-                    <td class="px-6 py-4 border-b border-gray-100 text-sm text-gray-800">{{ device.type }}</td>
-                    <td class="px-6 py-4 border-b border-gray-100 text-sm text-gray-800">{{ device.vendor }}</td>
-                    <td class="px-6 py-4 border-b border-gray-100 text-sm text-gray-800">{{ device.model }}</td>
-                    <td class="px-6 py-4 border-b border-gray-100 text-sm text-gray-800">{{ device.contactId }}</td>
-                    <td class="px-6 py-4 border-b border-gray-100 text-sm text-gray-800">{{ new Date(device.firstSeen * 1000).toLocaleString() }}</td>
-                    <td class="px-6 py-4 border-b border-gray-100 text-sm text-gray-800">{{ new Date(device.lastChanged * 1000).toLocaleString() }}</td>
-                </tr>
-                </tbody>
-            </table>
+                        </td>
+                        <td class="px-6 py-4 border-b border-gray-100 text-sm text-gray-800">{{ device.type }}</td>
+                        <td class="px-6 py-4 border-b border-gray-100 text-sm text-gray-800">{{ device.vendor }}</td>
+                        <td class="px-6 py-4 border-b border-gray-100 text-sm text-gray-800">{{ device.model }}</td>
+                        <td class="px-6 py-4 border-b border-gray-100 text-sm text-gray-800">{{ device.contactId }}</td>
+                        <td class="px-6 py-4 border-b border-gray-100 text-sm text-gray-800">
+                            {{ new Date(device.firstSeen * 1000).toLocaleString() }}
+                        </td>
+                        <td class="px-6 py-4 border-b border-gray-100 text-sm text-gray-800">
+                            {{ new Date(device.lastChanged * 1000).toLocaleString() }}
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- Horizontal scrollbar container -->
+        <div class="absolute bottom-0 left-0 right-0 overflow-x-auto">
+            <div class="w-[200%] h-0"></div> <!-- Match table width -->
         </div>
 
         <!-- Error message -->

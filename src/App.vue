@@ -1,5 +1,5 @@
 <template>
-  <Home />
+    <Home/>
 </template>
 
 <script setup>
@@ -9,7 +9,7 @@ import Home from './views/Home.vue'
 <style>
 /* global styles if needed */
 body {
-  margin: 0;
-  font-family: sans-serif;
+    margin: 0;
+    font-family: sans-serif;
 }
 </style>
