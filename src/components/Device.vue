@@ -46,21 +46,21 @@
                         </td>
                         <td class="px-6 py-4 border-b border-gray-100 text-sm text-gray-800">{{ device.name }}</td>
                         <td class="px-6 py-4 border-b border-gray-100 text-sm text-gray-800">
-                        <span
-                            v-if="device.state === 1"
-                            class="bg-green-100 text-green-700 px-2 py-1 rounded text-xs font-medium"
-                        >
-                            ON
-                          </span>
+                            <span
+                                v-if="device.state === 1"
+                                class="bg-green-500 text-white inline-block w-full text-center px-2 py-1 rounded text-xs font-bold"
+                            >
+                            UP
+                            </span>
                             <span
                                 v-else-if="device.state === 0"
-                                class="bg-red-100 text-red-700 px-2 py-1 rounded text-xs font-medium"
+                                class="bg-red-500 text-white inline-block w-full text-center px-2 py-1 rounded text-xs font-bold"
                             >
                             DOWN
-                          </span>
+                            </span>
                             <span
                                 v-else
-                                class="bg-gray-100 text-gray-700 px-2 py-1 rounded text-xs font-medium"
+                                class="bg-gray-100 text-gray-700 inline-block w-full text-center px-2 py-1 rounded text-xs font-bold"
                             >
                             UNKNOWN
                           </span>
