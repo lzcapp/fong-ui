@@ -70,8 +70,8 @@
                     <td class="px-6 py-4 border-b border-gray-100 text-sm text-gray-800">{{ device.vendor }}</td>
                     <td class="px-6 py-4 border-b border-gray-100 text-sm text-gray-800">{{ device.model }}</td>
                     <td class="px-6 py-4 border-b border-gray-100 text-sm text-gray-800">{{ device.contactId }}</td>
-                    <td class="px-6 py-4 border-b border-gray-100 text-sm text-gray-800">{{ new Date(device.firstSeen).toLocaleString() }}</td>
-                    <td class="px-6 py-4 border-b border-gray-100 text-sm text-gray-800">{{ new Date(device.lastChanged).toLocaleString() }}</td>
+                    <td class="px-6 py-4 border-b border-gray-100 text-sm text-gray-800">{{ new Date(device.firstSeen * 1000).toLocaleString() }}</td>
+                    <td class="px-6 py-4 border-b border-gray-100 text-sm text-gray-800">{{ new Date(device.lastChanged * 1000).toLocaleString() }}</td>
                 </tr>
                 </tbody>
             </table>
