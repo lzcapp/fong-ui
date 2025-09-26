@@ -13,14 +13,14 @@
 <script setup>
 import {computed, ref} from "vue"
 import Sidebar from "../components/Sidebar.vue"
-import DeviceTable from "../components/Device.vue"
+import DevicesTable from "../components/Devices.vue"
 
 const currentPage = ref("dashboard")
 
 const currentComponent = computed(() => {
     switch (currentPage.value) {
         case "devices":
-            return DeviceTable
+            return DevicesTable
         default:
             return {template: "<div class='p-4'>Dashboard Page</div>"}
     }

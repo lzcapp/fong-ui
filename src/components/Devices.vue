@@ -32,8 +32,8 @@
                         class="hover:bg-gray-50 transition-colors"
                     >
                         <td class="px-6 py-4 border-b border-gray-100 text-sm text-gray-800">{{ device.id }}</td>
-                        <td class="px-6 py-4 border-b border-gray-100 text-sm text-gray-800">{{ device.mac }}</td>
-                        <td class="px-6 py-4 border-b border-gray-100 text-sm text-gray-800">
+                        <td class="px-6 py-4 border-b border-gray-100 text-sm text-gray-800 font-mono">{{ device.mac }}</td>
+                        <td class="px-6 py-4 border-b border-gray-100 text-sm text-gray-800 font-mono">
                             <div class="flex flex-wrap gap-2">
                             <span
                                 v-for="ip in device.ip.split(',')"

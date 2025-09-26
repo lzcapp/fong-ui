@@ -9,7 +9,7 @@ const routes = [
         component: Index,
         //路由嵌套
         children: [
-            {path: '/index/device', component: () => import('./components/Device.vue')},
+            {path: '/index/device', component: () => import('./components/Devices.vue')},
             {path: '/index/menu2', component: () => import('./components/Main2.vue')},
             {path: '/index/menu3', component: () => import('./components/Main3.vue')}
         ]
