@@ -13,7 +13,6 @@
                 <table class="min-w-full border border-gray-200 rounded-lg shadow-sm">
                     <thead>
                     <tr class="bg-gray-100 text-gray-700">
-                        <th class="px-6 py-3 text-left text-sm font-semibold border-b border-gray-200">ID</th>
                         <th class="px-6 py-3 text-left text-sm font-semibold border-b border-gray-200">Mac</th>
                         <th class="px-6 py-3 text-left text-sm font-semibold border-b border-gray-200">IP</th>
                         <th class="px-6 py-3 text-left text-sm font-semibold border-b border-gray-200">Name</th>
@@ -31,17 +30,29 @@
                         :key="device.id"
                         class="hover:bg-gray-50 transition-colors"
                     >
-                        <td class="px-6 py-4 border-b border-gray-100 text-sm text-gray-800">{{ device.id }}</td>
-                        <td class="px-6 py-4 border-b border-gray-100 text-sm text-gray-800 font-mono">{{ device.mac }}</td>
+                        <td class="px-6 py-4 border-b border-gray-100 text-sm text-gray-800 font-mono">{{
+                                device.mac
+                            }}
+                        </td>
                         <td class="px-6 py-4 border-b border-gray-100 text-sm text-gray-800 font-mono">
                             <div class="flex flex-wrap gap-2">
-                            <span
-                                v-for="ip in device.ip.split(',')"
-                                :key="ip"
-                                class="bg-blue-100 text-blue-700 text-xs font-medium px-2 py-1 rounded"
-                            >
-                              {{ ip.trim() }}
-                            </span>
+                                <div
+                                    v-for="ip in device.ip.trim().split(',')"
+                                    :key="ip"
+                                    class="flex gap-1"
+                                ><template v-for="(part, index) in ip.trim().split('.')">
+                                    <!-- Octet -->
+                                    <span
+                                        class="inline-block w-6 font-mono text-right text-blue-700 rounded px-0 py-0.5"
+                                    >{{ part.trim() }}</span>
+                                    <!-- Dot (only between octets) -->
+                                    <span
+                                        v-if="index < ip.trim().split('.').length - 1"
+                                        :key="'dot-' + index"
+                                        class="inline-block text-gray-400 w-2 text-center"
+                                    >.</span>
+                                </template>
+                                </div>
                             </div>
                         </td>
                         <td class="px-6 py-4 border-b border-gray-100 text-sm text-gray-800">{{ device.name }}</td>
