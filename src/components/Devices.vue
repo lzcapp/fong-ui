@@ -40,18 +40,23 @@
                                     v-for="ip in device.ip.trim().split(',')"
                                     :key="ip"
                                     class="flex gap-1"
-                                ><template v-for="(part, index) in ip.trim().split('.')">
-                                    <!-- Octet -->
-                                    <span
-                                        class="inline-block w-6 font-mono text-right text-blue-700 rounded px-0 py-0.5"
-                                    >{{ part.trim() }}</span>
-                                    <!-- Dot (only between octets) -->
-                                    <span
-                                        v-if="index < ip.trim().split('.').length - 1"
-                                        :key="'dot-' + index"
-                                        class="inline-block text-gray-400 w-2 text-center"
-                                    >.</span>
-                                </template>
+                                >
+                                    <template v-for="(part, index) in ip.trim().split('.')">
+                                        <!-- Octet -->
+                                        <span
+                                            :class="[
+                                              'inline-block font-mono text-right text-blue-700 rounded px-0 py-0.5',
+                                              index < 3 ? 'w-auto' : 'w-6'
+                                            ]"
+                                        >{{ part.trim() }}</span>
+                                        <!-- Dot -->
+                                        <span
+                                            v-if="index < ip.trim().split('.').length - 1"
+                                            :key="'dot-' + index"
+                                            class="inline-block text-gray-400 w-auto text-center px-0 py-0.5"
+                                        >.</span>
+                                    </template>
+
                                 </div>
                             </div>
                         </td>
