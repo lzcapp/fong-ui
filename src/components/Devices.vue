@@ -78,7 +78,7 @@
                                 v-else
                                 class="bg-gray-100 text-gray-700 inline-block w-full text-center px-2 py-1 rounded text-xs font-bold"
                             >
-                            UNKNOWN
+                            {{ $t('status.unknown') }}
                           </span>
                         </td>
                         <td class="px-6 py-4 border-b border-gray-100 text-sm text-gray-800">{{ device.type }}</td>
