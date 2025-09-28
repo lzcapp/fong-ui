@@ -66,7 +66,7 @@
                                 v-if="device.state === 1"
                                 class="bg-green-500 text-white inline-block w-full text-center px-2 py-1 rounded text-xs font-bold"
                             >
-                            {{$t('status.up')}}
+                            {{ $t('status.up') }}
                             </span>
                             <span
                                 v-else-if="device.state === 0"
