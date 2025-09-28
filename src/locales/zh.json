@@ -2,7 +2,8 @@
   "greeting": "你好",
   "welcome_message": "欢迎你, {name}!",
   "status": {
-    "UP": "在线",
-    "DOWN": "离线"
+    "up": "在线",
+    "down": "离线",
+    "unknown": "N/A"
   }
 }

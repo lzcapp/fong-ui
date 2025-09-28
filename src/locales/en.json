@@ -2,7 +2,8 @@
   "greeting": "Hello",
   "welcome_message": "Welcome, {name}!",
   "status": {
-    "UP": "Online",
-    "DOWN": "Offline"
+    "up": "Online",
+    "down": "Offline",
+    "unknown": "N/A"
   }
 }
